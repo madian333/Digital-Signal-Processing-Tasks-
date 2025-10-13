@@ -60,7 +60,10 @@ def display_task2():
                 ax1.plot(t1_gen, signal1_gen, 'b-', linewidth=1)
             title1 = f"Generated {wave_type} Signal 1"
             ax1.set_title(title1, fontsize=14)
-            ax1.set_xlabel("Index (n)", fontsize=12)
+            if is_discrete:
+                ax1.set_xlabel("Index (n)", fontsize=12)
+            else:
+                ax1.set_xlabel("Time (s)", fontsize=12)
             ax1.set_ylabel("Amplitude", fontsize=12)
             ax1.grid(True)
             st.pyplot(fig1, use_container_width=True)
@@ -73,7 +76,10 @@ def display_task2():
                 ax2.plot(t2_gen, signal2_gen, 'r-', linewidth=1)
             title2 = f"Generated {wave_type} Signal 2"
             ax2.set_title(title2, fontsize=14)
-            ax2.set_xlabel("Index (n)", fontsize=12)
+            if is_discrete:
+                ax2.set_xlabel("Index (n)", fontsize=12)
+            else:
+                ax2.set_xlabel("Time (s)", fontsize=12)
             ax2.set_ylabel("Amplitude", fontsize=12)
             ax2.grid(True)
             st.pyplot(fig2, use_container_width=True)
