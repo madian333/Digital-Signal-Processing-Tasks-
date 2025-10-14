@@ -27,59 +27,72 @@ def display_task2():
         fs2 = st.number_input("fs2 (Hz)", value=10.0)
     
     if st.button("Generate Signals"):
-        duration = 2.0
-        selected_wave = 'sin' if wave_type == "Sine" else 'cos'
+        nyquist_violated = False
+        warning_msg = []
+        if fs1 <= 2 * f1:
+            nyquist_violated = True
+            warning_msg.append(f"Warning: fs1 ({fs1} Hz) must be greater than 2*f1 ({2*f1} Hz) to avoid aliasing.")
+        if fs2 <= 2 * f2:
+            nyquist_violated = True
+            warning_msg.append(f"Warning: fs2 ({fs2} Hz) must be greater than 2*f2 ({2*f2} Hz) to avoid aliasing.")
         
-        if is_discrete:
-            t1_gen = np.arange(0, duration, 1 / fs1)
-            t2_gen = np.arange(0, duration, 1 / fs2)
+        if nyquist_violated:
+            for msg in warning_msg:
+                st.warning(msg)
         else:
-            t1_gen = np.linspace(0, duration, 1000)
-            t2_gen = t1_gen.copy()
-        
-        omega1 = 2 * np.pi * f1
-        phase_term1 = omega1 * t1_gen + theta1
-        if selected_wave == 'sin':
-            signal1_gen = A1 * np.sin(phase_term1)
-        else:
-            signal1_gen = A1 * np.cos(phase_term1)
-        
-        omega2 = 2 * np.pi * f2
-        phase_term2 = omega2 * t2_gen + theta2
-        if selected_wave == 'sin':
-            signal2_gen = A2 * np.sin(phase_term2)
-        else:
-            signal2_gen = A2 * np.cos(phase_term2)
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            fig1, ax1 = plt.subplots(figsize=(10, 5))
+            duration = 2.0
+            selected_wave = 'sin' if wave_type == "Sine" else 'cos'
+            
             if is_discrete:
-                ax1.stem(t1_gen, signal1_gen, linefmt='b', markerfmt='bo', basefmt=' ')
+                t1_gen = np.arange(0, duration, 1 / fs1)
+                t2_gen = np.arange(0, duration, 1 / fs2)
             else:
-                ax1.plot(t1_gen, signal1_gen, 'b-', linewidth=1)
-            title1 = f"Generated {wave_type} Signal 1"
-            ax1.set_title(title1, fontsize=14)
-            if is_discrete:
-                ax1.set_xlabel("Index (n)", fontsize=12)
+                t1_gen = np.linspace(0, duration, 1000)
+                t2_gen = t1_gen.copy()
+            
+            omega1 = 2 * np.pi * f1
+            phase_term1 = omega1 * t1_gen + theta1
+            if selected_wave == 'sin':
+                signal1_gen = A1 * np.sin(phase_term1)
             else:
-                ax1.set_xlabel("Time (s)", fontsize=12)
-            ax1.set_ylabel("Amplitude", fontsize=12)
-            ax1.grid(True)
-            st.pyplot(fig1, use_container_width=True)
-        
-        with col2:
-            fig2, ax2 = plt.subplots(figsize=(10, 5))
-            if is_discrete:
-                ax2.stem(t2_gen, signal2_gen, linefmt='r', markerfmt='ro', basefmt=' ')
+                signal1_gen = A1 * np.cos(phase_term1)
+            
+            omega2 = 2 * np.pi * f2
+            phase_term2 = omega2 * t2_gen + theta2
+            if selected_wave == 'sin':
+                signal2_gen = A2 * np.sin(phase_term2)
             else:
-                ax2.plot(t2_gen, signal2_gen, 'r-', linewidth=1)
-            title2 = f"Generated {wave_type} Signal 2"
-            ax2.set_title(title2, fontsize=14)
-            if is_discrete:
-                ax2.set_xlabel("Index (n)", fontsize=12)
-            else:
-                ax2.set_xlabel("Time (s)", fontsize=12)
-            ax2.set_ylabel("Amplitude", fontsize=12)
-            ax2.grid(True)
-            st.pyplot(fig2, use_container_width=True)
+                signal2_gen = A2 * np.cos(phase_term2)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                fig1, ax1 = plt.subplots(figsize=(10, 5))
+                if is_discrete:
+                    ax1.stem(t1_gen, signal1_gen, linefmt='b', markerfmt='bo', basefmt=' ')
+                else:
+                    ax1.plot(t1_gen, signal1_gen, 'b-', linewidth=1)
+                title1 = f"Generated {wave_type} Signal 1"
+                ax1.set_title(title1, fontsize=14)
+                if is_discrete:
+                    ax1.set_xlabel("Index (n)", fontsize=12)
+                else:
+                    ax1.set_xlabel("Time (s)", fontsize=12)
+                ax1.set_ylabel("Amplitude", fontsize=12)
+                ax1.grid(True)
+                st.pyplot(fig1, use_container_width=True)
+            
+            with col2:
+                fig2, ax2 = plt.subplots(figsize=(10, 5))
+                if is_discrete:
+                    ax2.stem(t2_gen, signal2_gen, linefmt='r', markerfmt='ro', basefmt=' ')
+                else:
+                    ax2.plot(t2_gen, signal2_gen, 'r-', linewidth=1)
+                title2 = f"Generated {wave_type} Signal 2"
+                ax2.set_title(title2, fontsize=14)
+                if is_discrete:
+                    ax2.set_xlabel("Index (n)", fontsize=12)
+                else:
+                    ax2.set_xlabel("Time (s)", fontsize=12)
+                ax2.set_ylabel("Amplitude", fontsize=12)
+                ax2.grid(True)
+                st.pyplot(fig2, use_container_width=True)
