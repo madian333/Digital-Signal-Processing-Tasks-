@@ -10,7 +10,8 @@ sys.path.append("Task 1")
 sys.path.append("Task 1/Test")
 sys.path.append("Task 2")
 sys.path.append("Task 3")
-sys.path.append("Task 3/Test")
+sys.path.append("Task 3/Test/Test_1")
+sys.path.append("Task 3/Test/Test_2")
 
 from task1 import display_task1
 from task2 import display_task2
@@ -22,6 +23,12 @@ except ImportError:
     st.error("Could not import QuantizationTest1. Ensure the file exists at Task 3/Test/QuanTest1.py")
     QuantizationTest1 = None
 
+try:
+    from QuanTest2 import QuantizationTest2
+except ImportError:
+    st.error("Could not import QuantizationTest2. Ensure the file exists at Task 3/Test/Test_2/QuanTest2.py")
+    QuantizationTest2 = None
+    
 def read_signal_from_file(filename):
     indices = []
     values = []
@@ -51,4 +58,4 @@ with tab2:
     display_task2()
 
 with tab3:
-    display_task3(t1, signal1, QuantizationTest1)
+    display_task3(t1, signal1, QuantizationTest1, QuantizationTest2)
