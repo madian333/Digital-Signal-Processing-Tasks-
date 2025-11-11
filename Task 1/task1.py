@@ -23,6 +23,8 @@ def read_expected(filename):
     return indices, values
 
 def display_task1(t1, signal1, t2, signal2):
+
+    print("Task 1 is operating")
     st.subheader("Operations on Loaded Signals")
     operation = st.selectbox(
         "Select Operation",

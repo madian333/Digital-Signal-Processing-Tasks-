@@ -12,10 +12,12 @@ sys.path.append("Task 2")
 sys.path.append("Task 3")
 sys.path.append("Task 3/Test/Test_1")
 sys.path.append("Task 3/Test/Test_2")
+sys.path.append("Task 4")
 
 from task1 import display_task1
 from task2 import display_task2
 from task3 import display_task3
+from task4 import display_task4
 
 try:
     from QuanTest1 import QuantizationTest1
@@ -47,7 +49,7 @@ st.title("Signal Processing GUI")
 t1, signal1 = read_signal_from_file(r"Signals\Signal1.txt")
 t2, signal2 = read_signal_from_file(r"Signals\Signal2.txt")
 
-tab1, tab2, tab3 = st.tabs(["Task 1: Loaded Signals Operations", "Task 2: Generate Signals", "Task 3: Quantization"])
+tab1, tab2, tab3, tab4 = st.tabs(["Task 1: Loaded Signals Operations", "Task 2: Generate Signals", "Task 3: Quantization","Task 4: Filters and Convolution"])
 
 st.set_page_config(layout="wide")
 
@@ -59,3 +61,6 @@ with tab2:
 
 with tab3:
     display_task3(t1, signal1, QuantizationTest1, QuantizationTest2)
+
+with tab4:
+    display_task4()
