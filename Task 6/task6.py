@@ -95,6 +95,8 @@ def correlation(ind1,val1,ind2,val2):
     
     return indices,signal
 
+
+
 def max_index(values):
 
     n=len(values)
@@ -109,10 +111,19 @@ def max_index(values):
     return maxIdx
 
 
+def indices_arr():
+
+    indices=[]
+
+    for i in range(0,251):
+        indices.append(i)
+    
+    return indices
+
 
 def display_task6():
 
-    st.subheader("Correlation and Time Analysis")
+    st.subheader("Correlation")
     path1="Task 6\Correlation Task Files\Point1 Correlation\Corr_input signal1.txt"
     path2="Task 6\Correlation Task Files\Point1 Correlation\Corr_input signal2.txt"
     path3="Task 6\Correlation Task Files\Point1 Correlation\CorrOutput.txt"
@@ -157,6 +168,7 @@ def display_task6():
         if Compare_Signals(path3,actual_ind,actual_val):
             st.write("Correlation Test case passed successfully")
     
+    st.subheader("Time analysis")
     if st.button("Run Time Analysis Test Case"):
 
         path1="Task 6\Correlation Task Files\Point2 Time analysis\TD_input signal1.txt"
@@ -173,4 +185,63 @@ def display_task6():
 
         result=Ts*maxIndex
         st.write("Time delay =", result)
+
+    st.subheader("Classification")
+    if st.button("Run Classification Test Case 1"):
+        
+        test_values=np.loadtxt("Task 6\Correlation Task Files\point3 Files\Test Signals\Test1.txt")
+        indices=indices_arr()
+
+        max_Up=0
+        max_down=0
+        for i in range (1,6):
+
+            valuesUp=np.loadtxt(f"Task 6\Correlation Task Files\point3 Files\Class 2\_up{i}.txt")
+            valuesDown=np.loadtxt(f"Task 6\Correlation Task Files\point3 Files\Class 1\down{i}.txt")
+
+            _,valUp=correlation(indices,test_values,indices,valuesUp)
+            _,valDown=correlation(indices,test_values,indices,valuesDown)
+
+            max_Up=max_Up+max(valUp)
+            max_down=max_down+max(valDown)
+
+
+        avg_max_up=max_Up/5
+        avg_max_down=max_down/5
+
+        if(avg_max_up> avg_max_down):
+            st.write("Signal is classified to Class 2 (Up)") 
+        else:
+            st.write("Signal is classified to Class 1 (Down)")
+        
+    
+
+    if st.button("Run Classification Test Case 2"):
+
+        test_values=np.loadtxt("Task 6\Correlation Task Files\point3 Files\Test Signals\Test2.txt")
+        indices=indices_arr()
+
+        max_Up=0
+        max_down=0
+
+        for i in range (1,6):
+
+            valuesUp=np.loadtxt(f"Task 6\Correlation Task Files\point3 Files\Class 2\_up{i}.txt")
+            valuesDown=np.loadtxt(f"Task 6\Correlation Task Files\point3 Files\Class 1\down{i}.txt")
+
+            _,valUp=correlation(indices,test_values,indices,valuesUp)
+            _,valDown=correlation(indices,test_values,indices,valuesDown)
+
+            max_Up=max_Up+max(valUp)
+            max_down=max_down+max(valDown)
+
+
+        avg_max_up=max_Up/5
+        avg_max_down=max_down/5
+
+        if(avg_max_up> avg_max_down):
+            st.write("Signal is classified to Class 2 (Up)") 
+        else:
+            st.write("Signal is classified to Class 1 (Down)")
+
 
