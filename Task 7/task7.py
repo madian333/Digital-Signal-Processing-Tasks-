@@ -279,7 +279,21 @@ def draw_signal(act_indices,act_values,exp_indices,exp_values):
             st.pyplot(fig3, use_container_width=True)
 
 
-
+def fast_convolution(signal_values, filter_values):
+    N1 = len(signal_values)
+    N2 = len(filter_values)
+    N = N1 + N2 - 1
+    
+    x_padded = np.pad(signal_values, (0, N - N1), 'constant')
+    h_padded = np.pad(filter_values, (0, N - N2), 'constant')
+    
+    X = DFT(x_padded)
+    H = DFT(h_padded)
+    Y = X * H
+    
+    y_time = IDFT(Y)
+    
+    return np.real(y_time).tolist()
 
 
 def display_task7():
@@ -401,12 +415,22 @@ def display_task7():
         fc_dash,_= comute_fc_dash(filter,fs,transitionBand,fc_ideal)
 
         filter_indices,filter_values = compute_designed_filter(filter,window,N,fc_dash)
-
+        
         path1="Task 7\Practical Task\FIR test cases\Testcase 2\ecg400.txt"
-        signal_indices,signal_values= read_signal(path1)
+        path2="Task 7\Practical Task\FIR test cases\Testcase 2\ecg_low_pass_filtered.txt"
+        
+        signal_indices, signal_values = read_signal(path1)
+        exp_indices, exp_values = read_signal(path2)
 
-        # Apply Fourier Here
+        act_values = fast_convolution(signal_values, filter_values)
+        act_indices = list(range(len(act_values)))
 
+        draw_signal(act_indices, act_values, exp_indices, exp_values)
+
+        if(Compare_Signals(path2, act_indices, act_values)):
+            st.write("Test case passed successfully")
+        else:
+            st.write("Test case failed")
 
 
 
@@ -482,12 +506,22 @@ def display_task7():
 
 
         filter_indices,filter_values = compute_designed_filter(filter,window,N,fc_dash)
-
+        
         path1="Task 7\Practical Task\FIR test cases\Testcase 4\ecg400.txt"
-        signal_indices,signal_values= read_signal(path1)
+        path2="Task 7\Practical Task\FIR test cases\Testcase 4\ecg_high_pass_filtered.txt"
+        
+        signal_indices, signal_values = read_signal(path1)
+        exp_indices, exp_values = read_signal(path2)
 
-        # Apply Fourier Here
-    
+        act_values = fast_convolution(signal_values, filter_values)
+        act_indices = list(range(len(act_values)))
+
+        draw_signal(act_indices, act_values, exp_indices, exp_values)
+
+        if(Compare_Signals(path2, act_indices, act_values)):
+            st.write("Test case passed successfully")
+        else:
+            st.write("Test case failed")
 
 
 
@@ -563,13 +597,22 @@ def display_task7():
         fc1_dash,fc2_dash = comute_fc_dash(filter,fs,transitionBand,fc1_ideal,fc2_ideal)
 
         filter_indices,filter_values = compute_designed_filter(filter,window,N,fc1_dash,fc2_dash)
-
+        
         path1="Task 7\Practical Task\FIR test cases\Testcase 6\ecg400.txt"
-        signal_indices,signal_values= read_signal(path1)
+        path2="Task 7\Practical Task\FIR test cases\Testcase 6\ecg_band_pass_filtered.txt"
+        
+        signal_indices, signal_values = read_signal(path1)
+        exp_indices, exp_values = read_signal(path2)
 
+        act_values = fast_convolution(signal_values, filter_values)
+        act_indices = list(range(len(act_values)))
 
-        # Apply Fourier Here
+        draw_signal(act_indices, act_values, exp_indices, exp_values)
 
+        if(Compare_Signals(path2, act_indices, act_values)):
+            st.write("Test case passed successfully")
+        else:
+            st.write("Test case failed")
 
 
 
@@ -617,9 +660,10 @@ def display_task7():
         filter_indices,filter_values = compute_designed_filter(filter,window,N,fc1_dash,fc2_dash)
 
         path1="Task 7\Practical Task\FIR test cases\Testcase 8\ecg400.txt"
+        path2="Task 7\Practical Task\FIR test cases\Testcase 8\ecg_band_stop_filtered.txt"
         signal_indices,signal_values= read_signal(path1)
 
-        path2="Task 7\Practical Task\FIR test cases\Testcase 8\ecg_band_stop_filtered.txt"
+        
         exp_indices,exp_values=read_signal(path2)
 
         act_indices,act_values = convolution(signal_indices,signal_values,filter_indices,filter_values)
@@ -646,21 +690,19 @@ def display_task7():
         fc1_dash,fc2_dash = comute_fc_dash(filter,fs,transitionBand,fc1_ideal,fc2_ideal)
 
         filter_indices,filter_values = compute_designed_filter(filter,window,N,fc1_dash,fc2_dash)
-
-
+        
         path1="Task 7\Practical Task\FIR test cases\Testcase 8\ecg400.txt"
-        signal_indices,signal_values= read_signal(path1)
-    
+        path2="Task 7\Practical Task\FIR test cases\Testcase 8\ecg_band_stop_filtered.txt"
+        
+        signal_indices, signal_values = read_signal(path1)
+        exp_indices, exp_values = read_signal(path2)
 
-        # Apply Fourier Here
+        act_values = fast_convolution(signal_values, filter_values)
+        act_indices = list(range(len(act_values)))
 
+        draw_signal(act_indices, act_values, exp_indices, exp_values)
 
-
-
-
-
-
-
-
-
-
+        if(Compare_Signals(path2, act_indices, act_values)):
+            st.write("Test case passed successfully")
+        else:
+            st.write("Test case failed")
