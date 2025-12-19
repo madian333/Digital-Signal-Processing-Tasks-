@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+html,
+body,
+[class*="css"] {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0a;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.task-box-wrapper {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+}
+
+.task-box {
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.task-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.task-box:hover::before {
+    opacity: 1;
+}
+
+.task-number {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.task-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ccc;
+    transition: all 0.3s;
+}
+
+.task-blue {
+    border-bottom: 5px solid #0072ff;
+}
+
+.task-blue::before {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.task-blue .task-number {
+    color: #0072ff;
+}
+
+.task-blue:hover {
+    background: linear-gradient(145deg, #001a33, #003366);
+}
+
+.task-purple {
+    border-bottom: 5px solid #8E2DE2;
+}
+
+.task-purple::before {
+    background: linear-gradient(135deg, #8E2DE2, #4A00E0);
+}
+
+.task-purple .task-number {
+    color: #8E2DE2;
+}
+
+.task-purple:hover {
+    background: linear-gradient(145deg, #1a0a33, #331966);
+}
+
+.task-orange {
+    border-bottom: 5px solid #f5af19;
+}
+
+.task-orange::before {
+    background: linear-gradient(135deg, #f12711, #f5af19);
+}
+
+.task-orange .task-number {
+    color: #f5af19;
+}
+
+.task-orange:hover {
+    background: linear-gradient(145deg, #331a00, #664400);
+}
+
+.task-green {
+    border-bottom: 5px solid #38ef7d;
+}
+
+.task-green::before {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.task-green .task-number {
+    color: #38ef7d;
+}
+
+.task-green:hover {
+    background: linear-gradient(145deg, #0a331a, #145533);
+}
+
+.task-pink {
+    border-bottom: 5px solid #ec008c;
+}
+
+.task-pink::before {
+    background: linear-gradient(135deg, #ec008c, #fc6767);
+}
+
+.task-pink .task-number {
+    color: #ec008c;
+}
+
+.task-pink:hover {
+    background: linear-gradient(145deg, #330019, #660033);
+}
+
+.task-yellow {
+    border-bottom: 5px solid #FDC830;
+}
+
+.task-yellow::before {
+    background: linear-gradient(135deg, #FDC830, #F37335);
+}
+
+.task-yellow .task-number {
+    color: #FDC830;
+}
+
+.task-yellow:hover {
+    background: linear-gradient(145deg, #332800, #664d00);
+}
+
+.task-red {
+    border-bottom: 5px solid #ff4757;
+}
+
+.task-red::before {
+    background: linear-gradient(135deg, #ff6348, #ff4757);
+}
+
+.task-red .task-number {
+    color: #ff4757;
+}
+
+.task-red:hover {
+    background: linear-gradient(145deg, #330a0f, #66141e);
+}
+
+.task-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+div[data-testid="stButton"]>button {
+    background: linear-gradient(135deg, #4a5ec7 0%, #5a3b82 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(74, 94, 199, 0.3);
+}
+
+div[data-testid="stButton"]>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 94, 199, 0.4);
+}
+
+div[data-testid="stButton"]>button:active {
+    transform: translateY(0);
+}
+
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea,
+.stSelectbox>div>div>select {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s;
+}
+
+.stTextInput>div>div>input:focus,
+.stTextArea>div>div>textarea:focus,
+.stSelectbox>div>div>select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+div[data-testid="stTabs"] {
+    background-color: transparent;
+}
+
+div[data-testid="stTabs"] button {
+    background-color: #1a1a1a;
+    color: #888;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    padding: 0.75rem 1.5rem;
+    margin-right: 0.5rem;
+    transition: all 0.3s;
+}
+
+div[data-testid="stTabs"] button[aria-selected="true"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+div[data-testid="stTabs"] button:hover {
+    background-color: #2a2a2a;
+}
+
+.stProgress>div>div>div>div {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+div[data-testid="stMetric"] {
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+div[data-testid="stMetric"] label {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+div[data-testid="stMetric"] div {
+    color: #fff;
+    font-weight: 700;
+}
+
+.stDataFrame {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+    .task-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .task-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .task-box {
+        min-height: 150px;
+    }
+
+    .task-number {
+        font-size: 2.5rem;
+    }
+
+    .task-name {
+        font-size: 1.1rem;
+    }
+}

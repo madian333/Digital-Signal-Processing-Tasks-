@@ -7,7 +7,7 @@ from task5 import DFT,IDFT
 
 
 
-def Compare_Signals(file_name,Your_indices,Your_samples):      
+def Compare_Signals(file_name,Your_indices,Your_samples):       
     expected_indices=[]
     expected_samples=[]
     with open(file_name, 'r') as f:
@@ -16,7 +16,6 @@ def Compare_Signals(file_name,Your_indices,Your_samples):
         line = f.readline()
         line = f.readline()
         while line:
-            # process line
             L=line.strip()
             if len(L.split(' '))==2:
                 L=line.split(' ')
@@ -234,7 +233,7 @@ def draw_filter(act_indices,act_values,exp_indices,exp_values):
             ax2.set_xlabel("n")
             ax2.set_ylabel("Amplitude")
             ax2.grid(True)
-            st.pyplot(fig2, use_container_width=True)
+            st.pyplot(fig2, use_container_width=True) 
         
         with col3:
             fig3, ax3 = plt.subplots(figsize=(4, 3))
@@ -266,7 +265,7 @@ def draw_signal(act_indices,act_values,exp_indices,exp_values):
             ax2.set_xlabel("n")
             ax2.set_ylabel("Amplitude")
             ax2.grid(True)
-            st.pyplot(fig2, use_container_width=True)
+            st.pyplot(fig2, use_container_width=True) 
         
         with col3:
             fig3, ax3 = plt.subplots(figsize=(4, 3))
@@ -423,7 +422,9 @@ def display_task7():
         exp_indices, exp_values = read_signal(path2)
 
         act_values = fast_convolution(signal_values, filter_values)
-        act_indices = list(range(len(act_values)))
+        
+        start_index = signal_indices[0] + filter_indices[0]
+        act_indices = [start_index + i for i in range(len(act_values))]
 
         draw_signal(act_indices, act_values, exp_indices, exp_values)
 
@@ -514,7 +515,9 @@ def display_task7():
         exp_indices, exp_values = read_signal(path2)
 
         act_values = fast_convolution(signal_values, filter_values)
-        act_indices = list(range(len(act_values)))
+        
+        start_index = signal_indices[0] + filter_indices[0]
+        act_indices = [start_index + i for i in range(len(act_values))]
 
         draw_signal(act_indices, act_values, exp_indices, exp_values)
 
@@ -605,7 +608,9 @@ def display_task7():
         exp_indices, exp_values = read_signal(path2)
 
         act_values = fast_convolution(signal_values, filter_values)
-        act_indices = list(range(len(act_values)))
+        
+        start_index = signal_indices[0] + filter_indices[0]
+        act_indices = [start_index + i for i in range(len(act_values))]
 
         draw_signal(act_indices, act_values, exp_indices, exp_values)
 
@@ -698,7 +703,9 @@ def display_task7():
         exp_indices, exp_values = read_signal(path2)
 
         act_values = fast_convolution(signal_values, filter_values)
-        act_indices = list(range(len(act_values)))
+        
+        start_index = signal_indices[0] + filter_indices[0]
+        act_indices = [start_index + i for i in range(len(act_values))]
 
         draw_signal(act_indices, act_values, exp_indices, exp_values)
 
